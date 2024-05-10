@@ -35,7 +35,7 @@ PatternExtractor getFixedPatternExtractor(std::string pattern) {
         {
             return false;
         }
-        if (src.compare(pattern_len, pattern, pattern_len) != 0) {
+        if (src.compare(0, pattern_len, pattern) != 0) {
             return false;
         }
 
@@ -45,24 +45,50 @@ PatternExtractor getFixedPatternExtractor(std::string pattern) {
     };
 }
 
-const PatternExtractor StringExtractor = [](std::string &src, std::string &dest) -> bool
+const PatternExtractor STRING_EXTRACTOR = [](std::string &src, std::string &dest) -> bool
 {
     if (src.empty())
     {
         return false;
     }
-    if (src[0] != '\"' && src[0] != '\'')
+
+    char first_char = src[0];
+    if (first_char != '\"' && first_char != '\'')
     {
         return false;
     }
-    int closing_quote_pos = src.find(src[0]);
+
+    int closing_quote_pos = src.find(first_char, 1);
     if (closing_quote_pos == std::string::npos)
     {
         return false;
     }
+
     int string_len = closing_quote_pos + 1;
     dest = src.substr(0, string_len);
     src.erase(0, string_len);
+
+    return true;
+};
+
+const PatternExtractor IDENTIFIER_EXTRACTOR = [](std::string &src, std::string &dest) -> bool
+{
+    if (src.empty())
+    {
+        return false;
+    }
+    if (src[0] != '_' && !std::isalpha(src[0]))
+    {
+        return false;
+    }
+    int len = 1;
+    while (len < src.size() &&
+        (src[len] == '_' || std::isalnum(src[len]))) {
+        len++;
+    }
+
+    dest = src.substr(0, len);
+    src.erase(0, len);
     return true;
 };
 
@@ -80,10 +106,16 @@ const std::vector<std::string> fixed_patterns_desc_priority{
 };
 
 std::vector<PatternExtractor> getAllPatternExtractorsDescPriority() {
-    std::vector<PatternExtractor> all{StringExtractor};
+    std::vector<PatternExtractor> all;
+
+    all.push_back(STRING_EXTRACTOR);
+
     for (auto fixed_pattern: fixed_patterns_desc_priority) {
         all.push_back(getFixedPatternExtractor(fixed_pattern));
     }
+
+    all.push_back(IDENTIFIER_EXTRACTOR);
+
     return all;
 }
 

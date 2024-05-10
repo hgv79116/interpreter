@@ -41,10 +41,6 @@ struct Variable {
 
 class List
 {
-public:
-    void append(Value val) {
-
-    }
 };
 
 class Tuple
