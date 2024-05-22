@@ -1,7 +1,6 @@
 #include <string>
 #include <vector>
 #include <unordered_set>
-// #include "type.hpp"
 
 #ifndef TOKENIZE_HPP_
 #   define TOKENIZE_HPP_

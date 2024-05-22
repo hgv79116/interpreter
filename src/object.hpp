@@ -44,9 +44,13 @@ public:
 
     ObjRef getType() const;
 
-    virtual void setAttribute(std::string attr, ObjRef ref);
+    virtual void setAttribute([[maybe_unused]] std::string attr, [[maybe_unused]] ObjRef ref) {
+        throw std::runtime_error{"Not supported"};
+    }
 
-    virtual ObjRef getAttribute(std::string attr) const;
+    virtual ObjRef getAttribute([[maybe_unused]] std::string attr) const {
+        throw std::runtime_error{"Not supported"};
+    }
 
     /* Required virtual destructors for virtual base classes */
     virtual ~Object() = default;

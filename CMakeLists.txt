@@ -17,9 +17,9 @@ set(src_directory "src")
 # file(GLOB_RECURSE src_files "${src_directory}/*")
 # Specify source files
 set(src_files
-  src/object.hpp
   src/object.cpp
-  src/tokenize.hpp)
+  src/type.cpp
+  src/builtin_types/str.cpp)
 
 foreach(f ${src_files})
   message("Added source file ${f}")
