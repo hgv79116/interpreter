@@ -48,8 +48,8 @@ public:
 
     virtual ObjRef getAttribute(std::string attr) const;
 
-    /* Required virtual destructors for virtual classes */
-    virtual ~Object();
+    /* Required virtual destructors for virtual base classes */
+    virtual ~Object() = default;
 
 private:
     ObjRef _type;
