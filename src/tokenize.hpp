@@ -1,10 +1,10 @@
 #include <string>
 #include <vector>
 #include <unordered_set>
-#include "types.hpp"
+// #include "type.hpp"
 
-#ifndef _TOKENIZE_HPP
-#define _TOKENIZE_HPP
+#ifndef TOKENIZE_HPP_
+#   define TOKENIZE_HPP_
 
 /*
     All patterns, with priorities from low to high
