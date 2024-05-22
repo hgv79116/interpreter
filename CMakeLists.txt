@@ -14,7 +14,13 @@ include(FetchContent)
 set(src_directory "src")
 
 # Probe all header files
-file(GLOB_RECURSE src_files "${src_directory}/*")
+# file(GLOB_RECURSE src_files "${src_directory}/*")
+# Specify source files
+set(src_files
+  src/object.hpp
+  src/object.cpp
+  src/tokenize.hpp)
+
 foreach(f ${src_files})
   message("Added source file ${f}")
 endforeach()
@@ -22,6 +28,19 @@ endforeach()
 # Set up main executable
 add_executable(int standalone/main.cpp ${src_files})
 target_include_directories(int PRIVATE ${src_directory})
+
+# Enable compiler warnings
+if(NOT TEST_INSTALLED_VERSION)
+  if(CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+    target_compile_options(int PUBLIC -Wall -Wpedantic -Wextra -Werror)
+  elseif(MSVC)
+    target_compile_options(int PUBLIC /W4 /WX)
+    target_compile_definitions(int PUBLIC DOCTEST_CONFIG_USE_STD_HEADERS)
+  endif()
+endif()
+
+# Set export compile command database on
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Fetch gtest
 FetchContent_Declare(
