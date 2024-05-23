@@ -2,6 +2,8 @@
 #include "type.hpp"
 #include "object.hpp"
 
+#ifndef BUILTIN_TYPES_BOOL_HPP_
+#define     BUILTIN_TYPES_BOOL_HPP_
 /**
  * Underlying C++ type for class 'bool'.
 */
@@ -44,3 +46,5 @@ private:
 /* Underlying C++ implementation for equal comparison between two bool objects.
  Throws if at least one object is not bool. */
 ObjRef boolEqual(ObjRef lhs, ObjRef rhs);
+
+#endif
