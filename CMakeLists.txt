@@ -19,7 +19,10 @@ set(src_directory "src")
 set(src_files
   src/object.cpp
   src/type.cpp
-  src/builtin_types/str.cpp)
+  src/builtin_types/str.cpp
+  src/builtin_types/bool.cpp
+  src/builtin_types/none.cpp
+  src/ops_imple.cpp)
 
 foreach(f ${src_files})
   message("Added source file ${f}")
