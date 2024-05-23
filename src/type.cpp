@@ -5,7 +5,6 @@
 
 #include "object.hpp"
 #include "type.hpp"
-#include "builtin_types/str.hpp"
 
 class MetaclassTypeObj: public TypeObj {
 public:

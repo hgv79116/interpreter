@@ -56,7 +56,8 @@ public:
 
     Object &operator=(Object &&obj) = delete;
 
-    ObjRef getType() const;
+    /* Returns the type object of this object. */
+    ObjRef getType() const { return _type; };
 
     virtual void setAttribute(std::string attr, ObjRef ref);
 
@@ -70,5 +71,8 @@ public:
 private:
     ObjRef _type;
 };
+
+/* Constructs on first call */
+ObjRef getNullObjRef();
 
 #endif

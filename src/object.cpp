@@ -62,3 +62,8 @@ void Object::setAttribute([[maybe_unused]] std::string attr, [[maybe_unused]] Ob
 ObjRef Object::getAttribute([[maybe_unused]] std::string attr) const {
     throw std::runtime_error{"Not supported"};
 }
+
+ObjRef getNullObjRef() {
+    static ObjRef null_obj_ref = ObjRef{};
+    return null_obj_ref;
+}
