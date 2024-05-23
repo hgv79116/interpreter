@@ -19,9 +19,7 @@ public:
     }
 };
 
-/* Follows the initialise on first call to force dynamic initialisation
-instead of not knowing whether the variable is initialised staticly
-or dynamically */
+/* Follows construct on first call idiom */
 ObjRef getMetatypeObject() {
     static ObjRef type_metaclass_obj = ObjRef{new MetaclassTypeObj()};
     return type_metaclass_obj;
