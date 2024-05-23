@@ -7,6 +7,10 @@ class Object;
 
 class ObjRef {
 public:
+    /* Default constructor. _obj_ptr is initialised to null */
+    ObjRef() : _obj_ptr {nullptr}, _ref_count {new int{0}} {};
+
+    /* Constructs an ObjRef from an Object pointer */
     ObjRef(Object *obj_ptr);
 
     ObjRef(const ObjRef &ref);
@@ -21,6 +25,16 @@ public:
     /* Allows uses as a normal pointer */
     Object &operator*() const;
 
+    /* Allows uses as a normal pointer */
+    Object *operator->() const;
+
+    /* Checks if the inner pointer is nullptr */
+    operator bool() const { return _obj_ptr == nullptr; }
+
+    /* Equality comparison */
+    bool operator==(const ObjRef &rhs) const;
+
+    /* Gets the inner object pointer */
     Object *getPtr() const;
 
     ~ObjRef();
@@ -44,13 +58,11 @@ public:
 
     ObjRef getType() const;
 
-    virtual void setAttribute([[maybe_unused]] std::string attr, [[maybe_unused]] ObjRef ref) {
-        throw std::runtime_error{"Not supported"};
-    }
+    virtual void setAttribute(std::string attr, ObjRef ref);
 
-    virtual ObjRef getAttribute([[maybe_unused]] std::string attr) const {
-        throw std::runtime_error{"Not supported"};
-    }
+    /* Gets the attribute with corresponding name. Returns null ObjRef if
+    there are no such attributes. */
+    virtual ObjRef getAttribute(std::string attr) const;
 
     /* Required virtual destructors for virtual base classes */
     virtual ~Object() = default;

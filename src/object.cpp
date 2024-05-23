@@ -30,6 +30,18 @@ ObjRef &ObjRef::operator=(ObjRef &&ref) noexcept {
     return *this;
 }
 
+Object& ObjRef::operator*() const {
+    return *_obj_ptr;
+}
+
+Object* ObjRef::operator->() const {
+    return _obj_ptr;
+}
+
+bool ObjRef::operator==(const ObjRef &rhs) const {
+    return _obj_ptr == rhs._obj_ptr;
+}
+
 Object *ObjRef::getPtr() const {
     return _obj_ptr;
 }
@@ -41,4 +53,12 @@ ObjRef::~ObjRef() {
         delete _ref_count;
         delete _obj_ptr;
     }
+}
+
+void Object::setAttribute([[maybe_unused]] std::string attr, [[maybe_unused]] ObjRef ref) {
+    throw std::runtime_error{"Not supported"};
+}
+
+ObjRef Object::getAttribute([[maybe_unused]] std::string attr) const {
+    throw std::runtime_error{"Not supported"};
 }
